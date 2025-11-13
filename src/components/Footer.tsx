@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="text-xl font-bold mb-4">About Rayna Tours</h3>
+            <h3 className="text-xl font-bold mb-4">About Elite Path</h3>
             <p className="text-gray-300 text-sm">
               Your trusted partner for unforgettable travel experiences worldwide. We offer curated tours, hotel bookings, and visa services.
             </p>
