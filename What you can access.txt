@@ -1,0 +1,12 @@
+📱 What you can access:
+
+Home - http://localhost:3000
+Activities - http://localhost:3000/activities
+Hotels - http://localhost:3000/hotels
+Holidays - http://localhost:3000/holidays
+Visas - http://localhost:3000/visas
+Cruises - http://localhost:3000/cruises
+Destinations - http://localhost:3000/destinations
+About - http://localhost:3000/about
+Contact - http://localhost:3000/contact
+Login - http://localhost:3000/login
