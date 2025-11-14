@@ -145,16 +145,9 @@ export default function VisasPage() {
                 <option value="">Select Destination</option>
                 <option value="Schengen">Schengen Visa</option>
                 <option value="USA">USA Visa</option>
-                <option value="Canada">Canada Visa</option>
-                <option value="UK">UK Visa</option>
                 <option value="Australia">Australia Visa</option>
-                <option value="Dubai">Dubai Visa</option>
-                <option value="Thailand">Thailand Visa</option>
-                <option value="Singapore">Singapore Visa</option>
-                <option value="Japan">Japan Visa</option>
-                <option value="Turkey">Turkey Visa</option>
-                <option value="India">India Visa</option>
-                <option value="Malaysia">Malaysia Visa</option>
+                <option value="Canada">Canada Visa</option>
+                <option value="United Kingdom">United Kingdom</option>
               </select>
             </div>
 
