@@ -134,17 +134,40 @@ export default function VisasPage() {
       return;
     }
 
+    if (!nationality) {
+      alert('Please select your nationality');
+      return;
+    }
+
+    if (!livingCountry) {
+      alert('Please select your current living country');
+      return;
+    }
+
+    if (!travelDate) {
+      alert('Please select your travel date');
+      return;
+    }
+
     // Build slug. For Schengen, prefer specific country if selected.
-    let slug = visaFor.toLowerCase().replace(/\s+/g, '-');
+    let visaSlug = visaFor.toLowerCase().replace(/\s+/g, '-');
     if (visaFor === 'Schengen') {
       if (schengenCountry) {
-        slug = schengenCountry.toLowerCase().replace(/\s+/g, '-') + '-visa';
+        visaSlug = schengenCountry.toLowerCase().replace(/\s+/g, '-') + '-visa';
       } else {
-        slug = 'schengen-visa';
+        visaSlug = 'schengen-visa';
       }
     }
 
-    router.push(`/visas/${slug}`);
+    // Redirect to details page with query parameters
+    const params = new URLSearchParams({
+      visa: visaSlug,
+      nationality,
+      living: livingCountry,
+      date: travelDate,
+    });
+    
+    router.push(`/visas/details?${params.toString()}`);
   };
 
   return (
