@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const visas = [
   {
@@ -102,14 +103,21 @@ const visas = [
 ];
 
 export default function VisasPage() {
+  const router = useRouter();
   const [visaFor, setVisaFor] = useState('');
   const [nationality, setNationality] = useState('');
   const [livingCountry, setLivingCountry] = useState('');
   const [travelDate, setTravelDate] = useState('');
 
   const handleSearch = () => {
-    console.log({ visaFor, nationality, livingCountry, travelDate });
-    alert(`Search: Visa For: ${visaFor}, Nationality: ${nationality}, Living: ${livingCountry}, Date: ${travelDate}`);
+    if (!visaFor) {
+      alert('Please select a destination visa');
+      return;
+    }
+    
+    // Convert visa name to URL slug (e.g., "USA Visa" -> "usa-visa")
+    const slug = visaFor.toLowerCase().replace(/\s+/g, '-');
+    router.push(`/visas/${slug}`);
   };
 
   return (
