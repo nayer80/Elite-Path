@@ -108,15 +108,30 @@ export default function VisasPage() {
   const [nationality, setNationality] = useState('');
   const [livingCountry, setLivingCountry] = useState('');
   const [travelDate, setTravelDate] = useState('');
+  const [schengenCountry, setSchengenCountry] = useState('');
+
+  const schengenCountries = [
+    'Austria', 'Belgium', 'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary',
+    'Iceland', 'Italy', 'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Norway', 'Poland',
+    'Portugal', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'Switzerland'
+  ];
 
   const handleSearch = () => {
     if (!visaFor) {
       alert('Please select a destination visa');
       return;
     }
-    
-    // Convert visa name to URL slug (e.g., "USA Visa" -> "usa-visa")
-    const slug = visaFor.toLowerCase().replace(/\s+/g, '-');
+
+    // Build slug. For Schengen, prefer specific country if selected.
+    let slug = visaFor.toLowerCase().replace(/\s+/g, '-');
+    if (visaFor === 'Schengen') {
+      if (schengenCountry) {
+        slug = schengenCountry.toLowerCase().replace(/\s+/g, '-') + '-visa';
+      } else {
+        slug = 'schengen-visa';
+      }
+    }
+
     router.push(`/visas/${slug}`);
   };
 
@@ -150,6 +165,23 @@ export default function VisasPage() {
                 <option value="United Kingdom">United Kingdom</option>
               </select>
             </div>
+
+            {/* Schengen Countries (shown when Schengen selected) */}
+            {visaFor === 'Schengen' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Schengen Country</label>
+                <select
+                  value={schengenCountry}
+                  onChange={(e) => setSchengenCountry(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="">Select Schengen Country</option>
+                  {schengenCountries.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {/* Select Nationality */}
             <div>
