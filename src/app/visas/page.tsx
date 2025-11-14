@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 const visas = [
   {
     id: 1,
@@ -100,6 +102,16 @@ const visas = [
 ];
 
 export default function VisasPage() {
+  const [visaFor, setVisaFor] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [livingCountry, setLivingCountry] = useState('');
+  const [travelDate, setTravelDate] = useState('');
+
+  const handleSearch = () => {
+    console.log({ visaFor, nationality, livingCountry, travelDate });
+    alert(`Search: Visa For: ${visaFor}, Nationality: ${nationality}, Living: ${livingCountry}, Date: ${travelDate}`);
+  };
+
   return (
     <>
       {/* Header */}
@@ -107,6 +119,102 @@ export default function VisasPage() {
         <div className="container">
           <h1 className="text-4xl font-bold">International Visas</h1>
           <p className="mt-2">Get visa assistance for travel to any country</p>
+        </div>
+      </section>
+
+      {/* Search / Filter Form */}
+      <section className="bg-white py-8 shadow-md">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4 items-end">
+            {/* Visa For */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Visa For</label>
+              <select
+                value={visaFor}
+                onChange={(e) => setVisaFor(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="">Select Destination</option>
+                <option value="Schengen">Schengen Visa</option>
+                <option value="USA">USA Visa</option>
+                <option value="Canada">Canada Visa</option>
+                <option value="UK">UK Visa</option>
+                <option value="Australia">Australia Visa</option>
+                <option value="Dubai">Dubai Visa</option>
+                <option value="Thailand">Thailand Visa</option>
+                <option value="Singapore">Singapore Visa</option>
+                <option value="Japan">Japan Visa</option>
+                <option value="Turkey">Turkey Visa</option>
+                <option value="India">India Visa</option>
+                <option value="Malaysia">Malaysia Visa</option>
+              </select>
+            </div>
+
+            {/* Select Nationality */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Select Nationality</label>
+              <select
+                value={nationality}
+                onChange={(e) => setNationality(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="">Choose Nationality</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="IN">India</option>
+                <option value="PK">Pakistan</option>
+                <option value="BD">Bangladesh</option>
+                <option value="SG">Singapore</option>
+                <option value="MY">Malaysia</option>
+                <option value="TH">Thailand</option>
+              </select>
+            </div>
+
+            {/* Select Living */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Select Living</label>
+              <select
+                value={livingCountry}
+                onChange={(e) => setLivingCountry(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              >
+                <option value="">Current Country</option>
+                <option value="US">United States</option>
+                <option value="UK">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="IN">India</option>
+                <option value="PK">Pakistan</option>
+                <option value="BD">Bangladesh</option>
+                <option value="SG">Singapore</option>
+                <option value="MY">Malaysia</option>
+                <option value="TH">Thailand</option>
+              </select>
+            </div>
+
+            {/* Travel Date */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Travel Date</label>
+              <input
+                type="date"
+                value={travelDate}
+                onChange={(e) => setTravelDate(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            {/* Search Button */}
+            <div>
+              <button
+                onClick={handleSearch}
+                className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition"
+              >
+                🔍 Search
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
