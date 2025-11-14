@@ -151,6 +151,12 @@ export default function VisasPage() {
 
     // Build slug. For Schengen, prefer specific country if selected.
     let visaSlug = visaFor.toLowerCase().replace(/\s+/g, '-');
+    
+    // Ensure all visa slugs end with "-visa"
+    if (!visaSlug.endsWith('-visa')) {
+      visaSlug = visaSlug + '-visa';
+    }
+    
     if (visaFor === 'Schengen') {
       if (schengenCountry) {
         visaSlug = schengenCountry.toLowerCase().replace(/\s+/g, '-') + '-visa';
