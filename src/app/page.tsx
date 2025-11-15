@@ -106,7 +106,7 @@ export default function Home() {
               Your Journey Starts Here
             </h1>
             <p className="text-xl mb-8 max-w-2xl mx-auto">
-              Discover amazing destinations, book flights, hotels, and create unforgettable travel memories with Rayna Tours.
+              Discover amazing destinations, book flights, hotels, and create unforgettable travel memories with Elite Path.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/activities" className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100">
@@ -247,7 +247,7 @@ export default function Home() {
             {[
               {
                 name: 'John Doe',
-                text: 'Amazing service! Booked my entire trip through Rayna Tours and had zero issues.',
+                text: 'Amazing service! Booked my entire trip through Elite Path and had zero issues.',
                 rating: 5,
               },
               {

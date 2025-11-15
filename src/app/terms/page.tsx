@@ -14,7 +14,7 @@ export default function TermsPage() {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
             <p className="text-gray-700 mb-6">
-              By using Rayna Tours' website and services, you agree to be bound by
+              By using Elite Path's website and services, you agree to be bound by
               these Terms and Conditions. If you do not agree to these terms, please
               do not use our services.
             </p>
@@ -36,7 +36,7 @@ export default function TermsPage() {
 
             <h2 className="text-2xl font-bold mb-4">4. Liability Limitations</h2>
             <p className="text-gray-700 mb-6">
-              Rayna Tours shall not be liable for any indirect, incidental, special,
+              Elite Path shall not be liable for any indirect, incidental, special,
               consequential, or punitive damages resulting from the use of our
               services. Our liability is limited to the amount paid for the booking.
             </p>

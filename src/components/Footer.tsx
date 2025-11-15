@@ -58,7 +58,7 @@ export default function Footer() {
 
         <div className="flex justify-between items-center flex-wrap gap-4">
           <p className="text-gray-400 text-sm">
-            &copy; {currentYear} Rayna Tours. All rights reserved.
+            &copy; {currentYear} Elite Path. All rights reserved.
           </p>
           <p className="text-gray-400 text-sm">
             Designed and Developed with ❤️

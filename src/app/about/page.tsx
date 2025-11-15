@@ -6,7 +6,7 @@ export default function AboutPage() {
       {/* Header */}
       <section className="bg-gradient-to-r from-primary to-orange-500 text-white py-12">
         <div className="container">
-          <h1 className="text-4xl font-bold">About Rayna Tours</h1>
+          <h1 className="text-4xl font-bold">About Elite Path</h1>
           <p className="mt-2">Your trusted travel partner since 1990</p>
         </div>
       </section>
@@ -18,7 +18,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold mb-4">Our Story</h2>
               <p className="text-gray-700 mb-4">
-                Founded in 1990, Rayna Tours has been providing exceptional travel
+                Founded in 1990, Elite Path has been providing exceptional travel
                 experiences to thousands of satisfied customers worldwide. What
                 started as a small local travel agency has grown into a global travel
                 powerhouse.
