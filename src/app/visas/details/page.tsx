@@ -275,10 +275,11 @@ function VisaDetailContent() {
                       </label>
                       {field.type === 'select' ? (
                         field.label && field.label.toLowerCase().includes('processing') ? (
-                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
-                              <option value="">{field.placeholder}</option>
-                              <option value="normal">Normal</option>
-                            </select>
+                        <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">{field.placeholder}</option>
+                            <option value="normal">Normal</option>
+                            <option value="express">Express</option>
+                          </select>
                         ) : (
                           <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                             <option value="">{field.placeholder}</option>
