@@ -197,8 +197,10 @@ function VisaDetailContent() {
     );
   }
 
+ 
+
   return (
-    <>
+    <div dir={slug === 'canada-visa' || slug === 'usa-visa' ? 'ltr' : undefined}>
       {/* Header */}
       <section className="bg-gray-50 py-8">
         <div className="container">
@@ -213,11 +215,15 @@ function VisaDetailContent() {
                   <p className="font-semibold">{item.name}</p>
                   {item.days && <p className="text-sm text-gray-600">{item.days}</p>}
                 </div>
+
+                
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      
 
       {/* Search Details */}
       <section className="bg-blue-50 py-6">
@@ -275,11 +281,18 @@ function VisaDetailContent() {
                       </label>
                       {field.type === 'select' ? (
                         field.label && field.label.toLowerCase().includes('processing') ? (
+                        option.type && option.type.toLowerCase().includes('canada') ? (
                         <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                            <option value="">{field.placeholder}</option>
+                            <option value="normal">Normal</option>
+                          </select>
+                        ) : (
+                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                             <option value="">{field.placeholder}</option>
                             <option value="normal">Normal</option>
                             <option value="express">Express</option>
                           </select>
+                        )
                         ) : (
                           <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                             <option value="">{field.placeholder}</option>
@@ -306,6 +319,91 @@ function VisaDetailContent() {
                   <div className="text-right w-full md:w-auto">
                     <p className="text-sm text-gray-600 mb-1">Starting from</p>
                     <p className="text-3xl font-bold text-primary">{option.prices.normal}</p>
+                    {option.type === 'CANADA VISITOR VISA' && (
+                      <div className="mt-4 prose max-w-none text-sm text-gray-700">
+                        <h4 className="font-semibold">Canada Visa Online</h4>
+                        <p>
+                          Most visitors, including both UAE citizens and residents, require a valid visitor visa to enter Canada. However, whether you need an entry permit depends on your nationality. For example, a US citizen does not require a visa to enter Canada and is eligible for a stay of up to six months (180 days). Confused by the complicated Canadian visa procedures or looking for a specialist company with extensive experience in international visa processing? Elite Path offers comprehensive Canadian visa solutions, including tourist and business visas.
+                        </p>
+                        <p>
+                          As the name suggests, a tourist visa is ideal for those planning a vacation or visiting family or friends in Canada. You can apply for a business visa if your visit is for attending a business conference, meetings, site visits, or undertaking general business activities. At Elite Path, our team of experts meticulously handles every step of the visa process—from free assessment of your visa requirements and compiling all necessary documents to accurately completing your application and submitting it to the embassy on your behalf.
+                        </p>
+                        <p>
+                          If you wish to leverage our extensive visa expertise, contact us immediately via phone, email, or our simple online form. We'll begin the process right away!
+                        </p>
+
+                        <h5 className="font-semibold mt-3">Canada Visa Documents</h5>
+                        <p className="font-semibold">Clients’ Documents:</p>
+                        <ul className="list-disc ml-5">
+                          <li>Valid UAE residence visa with at least 90 days validity</li>
+                          <li>Original passport (valid for at least six months with a minimum of two blank pages)</li>
+                          <li>Original NOC letter stating salary, designation, joining date, and travel purpose for employees addressing the Canadian Embassy</li>
+                          <li>Valid trade license copy, self-introduction letter stating monthly income and passport details for partners, investors, and owners</li>
+                          <li>Three recent photographs with white background (3.5 × 4.5 cm)</li>
+                          <li>Latest six months’ bank statement (online with bank stamp or original)</li>
+                          <li>Invitation letter from a friend or relative is an additional advantage</li>
+                          <li>Invitation letter required for a business visa</li>
+                        </ul>
+
+                        <p className="font-semibold mt-3">Elite Path Assistance:</p>
+                        <ul className="list-disc ml-5">
+                          <li>Appointment assistance for Canada visa</li>
+                          <li>Application form filling assistance</li>
+                          <li>Document verification</li>
+                          <li>Flight and hotel booking assistance</li>
+                        </ul>
+
+                        <p className="font-semibold mt-3">Special Notes:</p>
+                        <ul className="list-disc ml-5">
+                          <li>Holiday packages are available, including flight, hotel, sightseeing, and transfers</li>
+                          <li>Original passport will be held at the embassy for stamping purposes</li>
+                          <li>Clients must personally visit the embassy to submit original documents</li>
+                          <li>Service fees and visa fees are non-refundable in case of rejection</li>
+                          <li>Passport can be returned for travel purposes with additional charges</li>
+                          <li>Confirmed return air ticket and hotel voucher are required at the airport during your Canada visit</li>
+                          <li>Document collection service is available at additional charges in Dubai and Sharjah</li>
+                        </ul>
+
+                        <h5 className="font-semibold mt-3">How to Apply for a Canada Visa</h5>
+                        <p>Simply email or call us, and our representatives will assist you. Rest assured of full visa support with no hidden charges.</p>
+                        <p className="font-semibold">Contact us:</p>
+                        <p>Email: <a href="mailto:intvisas@elitepath.com" className="text-primary">intvisas@elitepath.com</a></p>
+                        <p>Toll-free: 80072962<br/>Phone: +971 42 087 543</p>
+
+                        <h5 className="font-semibold mt-3">Canada Visa FAQs</h5>
+                        <p className="font-semibold">Do I have to apply for a Canada visa?</p>
+                        <p>Most visitors, including UAE citizens and residents, require a valid visitor visa. However, the need depends on your nationality. For example, US citizens do not require a visa to enter Canada.</p>
+                        <p className="font-semibold">Are Elite Path’s Canada visa services open to all?</p>
+                        <p>Yes, services are available to all nationalities, provided the applicant is a UAE national or resident.</p>
+                        <p className="font-semibold">Do my children need a Canada visa?</p>
+                        <p>Yes, it is mandatory for all age groups to comply with Canadian visa requirements, including children.</p>
+                        <p className="font-semibold">Why should I choose Elite Path for my Canada visa application?</p>
+                        <p>Elite Path has a proven track record in international visa services, with over a decade of experience. Our dedicated team understands your unique visa needs, helps you select the best package, and guides you through every step—from initial inquiry to visa approval.</p>
+                        <p className="font-semibold">What are the primary documents required for a Canadian visa?</p>
+                        <ul className="list-disc ml-5">
+                          <li>Passport valid for at least six months from the date of departure</li>
+                          <li>UAE residence visa valid for at least 90 days</li>
+                          <li>Three photographs against a white background</li>
+                          <li>Letter of invitation from a Canadian resident</li>
+                          <li>Proof of funds for your visit</li>
+                          <li>Proof that your visit is temporary</li>
+                        </ul>
+                        <p className="font-semibold">Do I need to provide biometrics for my Canada visa application?</p>
+                        <p>Yes, most UAE applicants are required to provide biometrics (fingerprints and photograph) at an authorized Visa Application Center (VAC). Elite Path will help you schedule this step.</p>
+                        <p className="font-semibold">Is travel insurance required?</p>
+                        <p>While not mandatory in all cases, travel insurance is highly recommended and strengthens your application.</p>
+                        <p className="font-semibold">Do you guarantee visa approval?</p>
+                        <p>Visa approval is at the discretion of the Canadian Embassy. Elite Path cannot guarantee approval.</p>
+                        <p className="font-semibold">Can I check the status of my visa application?</p>
+                        <p>Yes, you can contact our visa team or track your application online using your unique visa reference number.</p>
+                        <p className="font-semibold">What is the approximate processing time for a Canada visa?</p>
+                        <p>The typical processing time is 30 to 35 days.</p>
+                        <p className="font-semibold">Am I eligible for a refund if my visa is rejected?</p>
+                        <p>No, the fees are non-refundable.</p>
+                        <p className="font-semibold">Can I reapply if my visa is refused?</p>
+                        <p>Yes, you can reapply, ensuring that previous issues are addressed. Our specialists can help you identify and rectify them before resubmission.</p>
+                      </div>
+                    )}
                   </div>
                   <div className="flex gap-3 w-full md:w-auto">
                     <button className="flex-1 md:flex-none px-6 py-2 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition">
@@ -318,6 +416,71 @@ function VisaDetailContent() {
                 </div>
 
                 {/* Australia descriptive copy (moved below pricing) */}
+                {slug === 'usa-visa' && option.type === 'USA VISA L1' && (
+                  <div className="mt-6 text-gray-700">
+                    <h4 className="text-lg font-semibold mb-2">USA Visa Online</h4>
+                    <p className="mb-2">
+                      As a leader in international visa services, Elite Path is a trusted source for all your USA visa requirements. We specialize in a full range of expert services designed to turn the stress of complicated visa procedures into a completely hassle-free experience. Our visa department is staffed with highly competent specialists who possess in-depth knowledge and extensive experience working efficiently with almost all consulates and embassies in the UAE. This enables us to recommend the most suitable visa options for you and minimize any chances of your US visa application being rejected.
+                    </p>
+                    <p className="mb-2">
+                      Whether you're traveling to the US for tourism or for an important business meeting or conference, we will represent you promptly in all your visa-related requirements. We assist you in preparing your application by accurately outlining and verifying all necessary documents to ensure fast visa processing. Unlike many other service providers who outsource their visa services, we handle the entire procedure from start to finish. This allows us to keep you updated on your visa status and, most importantly, ensure a smooth and timely approval of your US visa.
+                    </p>
+
+                    <h5 className="font-semibold mt-4">USA Visa Documents</h5>
+                    <p className="font-semibold mt-2">Client Documents</p>
+                    <ul className="list-disc list-inside mb-3">
+                      <li>Valid UAE residence visa with at least 30 days of validity</li>
+                      <li>Original passport (minimum 6 months validity with at least two blank pages)</li>
+                      <li>Original NOC letter stating salary, designation, joining date, and travel purpose for employees, addressed to the US Embassy</li>
+                      <li>Valid trade license copy, along with a self-introduction letter stating monthly income and passport details for partners, investors, and owners</li>
+                      <li>Three recent photographs with a white background (5 × 5 cm)</li>
+                      <li>Latest 6-month online bank statement with bank stamp or original bank statement</li>
+                      <li>Invitation letter from a friend or relative (optional but helpful)</li>
+                      <li>Invitation letter required for business visa</li>
+                      <li>Urgent service available with additional charges</li>
+                    </ul>
+
+                    <h5 className="font-semibold mt-2">Elite Path Assistance</h5>
+                    <ul className="list-disc list-inside mb-3">
+                      <li>Assistance with scheduling a US visa appointment</li>
+                      <li>Application support and DS-160 form filling</li>
+                      <li>Document verification</li>
+                      <li>Flight and hotel booking assistance</li>
+                    </ul>
+
+                    <h5 className="font-semibold mt-2">Special Notes</h5>
+                    <ul className="list-disc list-inside mb-3">
+                      <li>Holiday packages available including flights, hotel, sightseeing, and transfers</li>
+                      <li>Original passport will be held at the embassy for stamping</li>
+                      <li>Client must personally visit the embassy to submit original documents</li>
+                      <li>Service fees and visa fees are non-refundable in case of rejection</li>
+                      <li>Confirmed return air ticket and hotel booking may be required at the airport when visiting the US</li>
+                    </ul>
+
+                    <h5 className="font-semibold mt-2">How to Apply for a USA Visa</h5>
+                    <p className="mb-2">Simply contact any of the visa representatives at Elite Path, and leave the rest to us.</p>
+                    <p className="mb-2">Get instant help from our expert team and stay worry-free throughout the visa process.</p>
+                    <p className="mb-4">Contact us at: <a href="mailto:intvisas@elitepath.com" className="underline">intvisas@elitepath.com</a> or call our toll-free number <span className="font-semibold">80072962</span> or <span className="font-semibold">+971 42 087 543</span>.</p>
+
+                    <h5 className="font-semibold mt-2">USA Visa FAQs</h5>
+                    <div className="space-y-2">
+                      <p><strong>Is it important to obtain a visa before traveling to the US?</strong><br/>Yes. A visa is mandatory for all UAE nationals and UAE residents who are not eligible for any type of visa exemption.</p>
+                      <p><strong>Do you specialize in all types of US visas?</strong><br/>At Elite Path, we assist with obtaining US B1 and B2 visas only.</p>
+                      <p><strong>What is the difference between a B1 and B2 US visa?</strong><br/>B1 Visa: For business travel such as meetings, conferences, or training. B2 Visa: For tourism, visiting family/friends, or medical treatment.</p>
+                      <p><strong>How long is a US B1/B2 visa valid for?</strong><br/>The validity may range from a few months to 10 years, depending on your nationality and embassy discretion. Duration of stay is determined by the immigration officer at the port of entry.</p>
+                      <p><strong>Can I work in the US on a B1/B2 visa?</strong><br/>No. Employment is strictly prohibited under the B1/B2 visa category.</p>
+                      <p><strong>How can I apply for a US visa?</strong><br/>You may apply online or speak directly with one of our visa specialists. After reviewing your travel purpose and requirements, we advise you on the most suitable visa type and handle all paperwork to ensure your application is completed correctly.</p>
+                      <p><strong>What are the prerequisites for a US visa application?</strong><br/>Required documents include: US visa application form confirmation page, original passport (minimum 6 months validity), two recent photos on a white background, cover letter explaining your US trip, 3-month bank statement, invitation letter (from company, family, or friends), employment contract copy, travel itinerary.</p>
+                      <p><strong>Do I need travel insurance for my US trip?</strong><br/>Not mandatory, but strongly recommended due to high medical costs in the US.</p>
+                      <p><strong>Do I need to attend a US visa interview?</strong><br/>Yes. Most applicants must attend an in-person interview at the US Embassy or Consulate. Applicants under 14 and over 79 may be exempt.</p>
+                      <p><strong>Are children exempt from paying the visa fee?</strong><br/>No. All children require a visa and must pay the visa fee.</p>
+                      <p><strong>Can I extend my stay in the US?</strong><br/>Yes. Our visa consultants can guide you through the extension procedure.</p>
+                      <p><strong>What happens if I overstay my US visa?</strong><br/>Overstaying may result in visa cancellation, fines, or future travel bans.</p>
+                      <p><strong>What is the processing time for a US visa?</strong><br/>Typically 4–5 working days. Approval will be communicated via your registered email.</p>
+                      <p><strong>Can I track my visa application status?</strong><br/>Yes. You can track your application using your unique booking reference number.</p>
+                    </div>
+                  </div>
+                )}
                 {slug === 'australia-visa' && option.type === 'AUSTRALIA VISITOR VISA' && (
                   <div className="mt-6 text-gray-700">
                     <h4 className="text-lg font-semibold mb-2">Australia Visa Online</h4>
@@ -332,6 +495,8 @@ function VisaDetailContent() {
                     </p>
                   </div>
                 )}
+
+                
               </div>
             ))}
           </div>
@@ -348,6 +513,6 @@ function VisaDetailContent() {
           </button>
         </div>
       </section>
-    </>
+    </div>
   );
 }
