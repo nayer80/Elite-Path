@@ -10,6 +10,61 @@ export default function LoginPage() {
     password: '',
     confirmPassword: '',
   });
+  const [fbLoading, setFbLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  // Opens a Google OAuth popup. Requires a valid NEXT_PUBLIC_GOOGLE_CLIENT_ID
+  // and a redirect route at `/auth/google/callback` that you register in
+  // Google's OAuth consent screen. In production exchange the `code` server-side.
+  const handleGoogleSignIn = () => {
+    if (googleLoading) return;
+    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '';
+    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    if (!clientId) {
+      alert('Google Client ID not configured. Set NEXT_PUBLIC_GOOGLE_CLIENT_ID in .env.local');
+      return;
+    }
+
+    const scope = encodeURIComponent('openid email profile');
+    const state = Math.random().toString(36).substring(2);
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
+      clientId
+    )}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&state=${state}&prompt=select_account`;
+
+    const w = 600;
+    const h = 700;
+    const left = window.screenX + (window.outerWidth - w) / 2;
+    const top = window.screenY + (window.outerHeight - h) / 2;
+    const popup = window.open(authUrl, 'google_oauth', `width=${w},height=${h},left=${left},top=${top}`);
+    if (!popup) {
+      alert('Popup blocked. Please allow popups for this site.');
+      return;
+    }
+
+    setGoogleLoading(true);
+
+    const checkInterval = setInterval(() => {
+      if (popup.closed) {
+        clearInterval(checkInterval);
+        setGoogleLoading(false);
+        // Popup closed by user or after successful redirect
+        return;
+      }
+      try {
+        const popupUrl = popup.location.href;
+        if (popupUrl && popupUrl.startsWith(redirectUri)) {
+          // Popup has redirected to our callback URL; the callback page handles
+          // exchanging the code for tokens. We can safely close and reset loading state.
+          clearInterval(checkInterval);
+          popup.close();
+          setGoogleLoading(false);
+          // The callback page will handle the entire exchange and user redirect.
+        }
+      } catch (e) {
+        // Cross-origin errors are expected until the popup redirects to our domain
+      }
+    }, 500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,11 +161,35 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <button className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 mb-4 hover:bg-gray-50">
-            🔷 Sign with Google
+          <button
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={googleLoading}
+            aria-busy={googleLoading}
+            className={`w-full border-2 border-gray-300 rounded-lg px-4 py-2 mb-4 hover:bg-gray-50 ${
+              googleLoading ? 'opacity-60 cursor-not-allowed' : ''
+            }`}
+          >
+            {googleLoading ? 'Signing in with Google...' : '🔷 Sign with Google'}
           </button>
-          <button className="w-full border-2 border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 mb-6">
-            📘 Sign with Facebook
+          <button
+            type="button"
+            onClick={() => {
+              if (fbLoading) return;
+              setFbLoading(true);
+              // Simulate an async sign-in flow
+              setTimeout(() => {
+                setFbLoading(false);
+                alert('Signed in with Facebook (simulated)');
+              }, 1400);
+            }}
+            disabled={fbLoading}
+            aria-busy={fbLoading}
+            className={`w-full border-2 border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50 mb-6 ${
+              fbLoading ? 'opacity-60 cursor-not-allowed' : ''
+            }`}
+          >
+            {fbLoading ? 'Signing in with Facebook...' : '📘 Sign with Facebook'}
           </button>
 
           <p className="text-center text-gray-600 text-sm">
