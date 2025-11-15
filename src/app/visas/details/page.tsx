@@ -263,20 +263,6 @@ function VisaDetailContent() {
                   <div>
                     <h3 className="text-xl font-bold">{option.type}</h3>
                     <p className="text-sm text-gray-600">{option.description}</p>
-                    {slug === 'australia-visa' && option.type === 'AUSTRALIA VISITOR VISA' && (
-                      <div className="mt-4 text-gray-700">
-                        <h4 className="text-lg font-semibold mb-2">Australia Visa Online</h4>
-                        <p className="mb-2">
-                          With its awe-inspiring blend of lively cities, coastal experiences, untouched wilderness, wildlife wonders, and natural diversity accompanied by laidback feel, Australia is easily one of the most sought-after vacation spots. So if you plan for a trip to this wonderful country, we can help you with all your travel arrangements including professional visa assistance.
-                        </p>
-                        <p className="mb-2">
-                          As a specialist in international visa services, Rayna Tours offers prompt visa services to people who wish to travel to Australia from the UAE. Be it for holidaying or business purpose, our highly knowledgeable and experienced visa team will assist you through the meticulous procedures, from the expert advice on the selection of right visa as well as eligibility criteria to the submission of your application as per the rules and regulations to keep you updated till the approval and on time delivery of your Australian visa.
-                        </p>
-                        <p>
-                          Make a quick enquiry of our visa services by filling out all relevant details, such as number of visas, travel date, and processing type. The rest is assured that our panel of experts will review your queries and get back to you at the earliest possible convenience, ensuring seamlessly quick visa processing. Depending on the type of visa, you'll be required to meet certain requirements for the approval of your visa. Please refer to the 'VisaDocuments' section for the entire list.
-                        </p>
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -314,6 +300,21 @@ function VisaDetailContent() {
                     </div>
                   ))}
                 </div>
+
+                {slug === 'australia-visa' && option.type === 'AUSTRALIA VISITOR VISA' && (
+                  <div className="mt-6 text-gray-700">
+                    <h4 className="text-lg font-semibold mb-2">Australia Visa Online</h4>
+                    <p className="mb-2">
+                      With its awe-inspiring blend of lively cities, coastal experiences, untouched wilderness, wildlife wonders, and natural diversity accompanied by laidback feel, Australia is easily one of the most sought-after vacation spots. So if you plan for a trip to this wonderful country, we can help you with all your travel arrangements including professional visa assistance.
+                    </p>
+                    <p className="mb-2">
+                      As a specialist in international visa services, Rayna Tours offers prompt visa services to people who wish to travel to Australia from the UAE. Be it for holidaying or business purpose, our highly knowledgeable and experienced visa team will assist you through the meticulous procedures, from the expert advice on the selection of right visa as well as eligibility criteria to the submission of your application as per the rules and regulations to keep you updated till the approval and on time delivery of your Australian visa.
+                    </p>
+                    <p>
+                      Make a quick enquiry of our visa services by filling out all relevant details, such as number of visas, travel date, and processing type. The rest is assured that our panel of experts will review your queries and get back to you at the earliest possible convenience, ensuring seamlessly quick visa processing. Depending on the type of visa, you'll be required to meet certain requirements for the approval of your visa. Please refer to the 'VisaDocuments' section for the entire list.
+                    </p>
+                  </div>
+                )}
 
                 {/* Pricing and Buttons */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
