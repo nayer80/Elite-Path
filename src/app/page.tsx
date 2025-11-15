@@ -1,6 +1,8 @@
 'use client';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import ActivityCard from '@/components/ActivityCard';
 import HotelCard from '@/components/HotelCard';
 import Link from 'next/link';
@@ -84,6 +86,16 @@ const featuredHotels = [
 ];
 
 export default function Home() {
+  const router = useRouter();
+  const [quickVisa, setQuickVisa] = useState('');
+
+  const handleQuickVisa = (val: string) => {
+    if (!val) return;
+    let slug = val.toLowerCase().replace(/\s+/g, '-');
+    if (!slug.endsWith('-visa')) slug = slug + '-visa';
+    router.push(`/visas/details?visa=${encodeURIComponent(slug)}`);
+  };
+
   return (
     <>
       {/* Hero Section */}
@@ -195,12 +207,33 @@ export default function Home() {
               { icon: '🛂', label: 'Visas', href: '/visas' },
               { icon: '⛴️', label: 'Cruises', href: '/cruises' },
             ].map((service, idx) => (
-              <Link key={idx} href={service.href}>
-                <div className="bg-gradient-to-br from-primary to-orange-500 text-white p-8 rounded-lg text-center hover:shadow-lg transition cursor-pointer">
-                  <div className="text-5xl mb-3">{service.icon}</div>
-                  <h3 className="font-bold text-lg">{service.label}</h3>
-                </div>
-              </Link>
+              <div key={idx}>
+                <Link href={service.href}>
+                  <div className="bg-gradient-to-br from-primary to-orange-500 text-white p-8 rounded-lg text-center hover:shadow-lg transition cursor-pointer">
+                    <div className="text-5xl mb-3">{service.icon}</div>
+                    <h3 className="font-bold text-lg">{service.label}</h3>
+                  </div>
+                </Link>
+
+                {/* Quick visa selector shown under Visas card */}
+                {service.label === 'Visas' && (
+                  <div className="mt-3">
+                    <label className="sr-only">Quick Visa</label>
+                    <select
+                      value={quickVisa}
+                      onChange={(e) => { setQuickVisa(e.target.value); handleQuickVisa(e.target.value); }}
+                      className="w-full mt-2 rounded-lg px-3 py-2 text-gray-700"
+                    >
+                      <option value="">Quick select visa...</option>
+                      <option value="Schengen Visa">Schengen Visa</option>
+                      <option value="USA Visa">USA Visa</option>
+                      <option value="Australia Visa">Australia Visa</option>
+                      <option value="Canada Visa">Canada Visa</option>
+                      <option value="United Kingdom Visa">United Kingdom Visa</option>
+                    </select>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>
