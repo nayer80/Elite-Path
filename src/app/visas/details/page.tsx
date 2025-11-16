@@ -86,32 +86,7 @@ const visaDetails: { [key: string]: any } = {
       },
     ],
   },
-  'canada-visa': {
-    title: 'Canada Visa',
-    flag: '🇨🇦',
-    processingTypes: [
-      { name: 'Normal', days: '20 Working Days', icon: '📅' },
-      { name: 'Easy Documentation', icon: '📄' },
-      { name: 'Online Payment Option', icon: '💳' },
-    ],
-    visaOptions: [
-      {
-        id: 1,
-        type: 'CANADA VISITOR VISA',
-        description: 'Tourist/Business Visa',
-        fields: [
-          { label: 'Processing Type', type: 'select', placeholder: 'Select Processing Type' },
-          { label: 'Travel Date', type: 'date', placeholder: 'Select Travel Date' },
-          { label: 'No. Of Visa', type: 'select', placeholder: 'Select Quantity' },
-        ],
-        prices: {
-          normal: '$349',
-          express: '$449',
-          urgent: '$549',
-        },
-      },
-    ],
-  },
+  
   'australia-visa': {
     title: 'Australia Visa',
     flag: '🇦🇺',
@@ -411,6 +386,8 @@ function VisaDetailContent() {
                     </p>
                   </div>
                 )}
+
+                {/* Canada-specific option content removed */}
 
                 
               </div>

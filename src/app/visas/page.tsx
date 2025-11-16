@@ -20,14 +20,7 @@ const visas = [
     fee: 399,
     flag: '🇺🇸',
   },
-  {
-    id: 3,
-    country: 'Canada Visa',
-    duration: '6 Months',
-    processingTime: '20 Days',
-    fee: 349,
-    flag: '🇨🇦',
-  },
+  // Canada Visa removed per request
   {
     id: 4,
     country: 'UK Visa',
@@ -165,14 +158,20 @@ export default function VisasPage() {
       }
     }
 
-    // Redirect to details page with query parameters
+    // If Canada was selected, redirect to the dedicated Canada page (keeps query params)
     const params = new URLSearchParams({
       visa: visaSlug,
       nationality,
       living: livingCountry,
       date: travelDate,
     });
-    
+
+    if (visaSlug === 'canada-visa') {
+      router.push(`/visas/canada-visa?${params.toString()}`);
+      return;
+    }
+
+    // Redirect to details page with query parameters for other visas
     router.push(`/visas/details?${params.toString()}`);
   };
 

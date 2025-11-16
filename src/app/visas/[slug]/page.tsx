@@ -19,14 +19,6 @@ const visasData: { [key: string]: any } = {
     flag: '🇺🇸',
     description: 'Official US travel visa for tourism, business, and study.',
   },
-  'canada-visa': {
-    country: 'Canada Visa',
-    duration: '6 Months',
-    processingTime: '20 Days',
-    fee: 349,
-    flag: '🇨🇦',
-    description: 'Canadian travel and work visa assistance.',
-  },
   'uk-visa': {
     country: 'UK Visa',
     duration: '6 Months',
@@ -144,6 +136,7 @@ export default function VisaDetailPage() {
               <div className="bg-white rounded-lg shadow-lg p-8">
                 <h2 className="text-2xl font-bold mb-6">Visa Information</h2>
                 <p className="text-gray-700 mb-8 text-lg">{visa.description}</p>
+                {/* Canada content removed per request */}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                   <div className="bg-blue-50 p-6 rounded-lg">
