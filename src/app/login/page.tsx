@@ -25,45 +25,19 @@ export default function LoginPage() {
       return;
     }
 
-    const scope = encodeURIComponent('openid email profile');
+    const scope = 'openid email profile';
     const state = Math.random().toString(36).substring(2);
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
       clientId
-    )}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&state=${state}&prompt=select_account`;
+    )}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${encodeURIComponent(
+      scope
+    )}&state=${state}&prompt=select_account`;
 
-    const w = 600;
-    const h = 700;
-    const left = window.screenX + (window.outerWidth - w) / 2;
-    const top = window.screenY + (window.outerHeight - h) / 2;
-    const popup = window.open(authUrl, 'google_oauth', `width=${w},height=${h},left=${left},top=${top}`);
-    if (!popup) {
-      alert('Popup blocked. Please allow popups for this site.');
-      return;
-    }
-
+    // Optionally show a loading state — the browser will navigate away immediately.
     setGoogleLoading(true);
 
-    const checkInterval = setInterval(() => {
-      if (popup.closed) {
-        clearInterval(checkInterval);
-        setGoogleLoading(false);
-        // Popup closed by user or after successful redirect
-        return;
-      }
-      try {
-        const popupUrl = popup.location.href;
-        if (popupUrl && popupUrl.startsWith(redirectUri)) {
-          // Popup has redirected to our callback URL; the callback page handles
-          // exchanging the code for tokens. We can safely close and reset loading state.
-          clearInterval(checkInterval);
-          popup.close();
-          setGoogleLoading(false);
-          // The callback page will handle the entire exchange and user redirect.
-        }
-      } catch (e) {
-        // Cross-origin errors are expected until the popup redirects to our domain
-      }
-    }, 500);
+    // Redirect the main window to Google's OAuth page (full-page redirect)
+    window.location.href = authUrl;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
