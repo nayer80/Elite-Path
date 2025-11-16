@@ -44,15 +44,22 @@ export default function QuickEnquiryPage() {
           <div className="flex items-center justify-between text-center gap-4">
             <div className="flex-1">
               <div className="text-sm">🇦🇪</div>
-              <div className="font-semibold">+971 42087445</div>
+              <div className="font-semibold">+971509787748</div>
             </div>
             <div className="flex-1">
-              <div className="text-sm">🇮🇳</div>
-              <div className="font-semibold">+91 2066838877</div>
+              <div className="text-sm">🇪🇬</div>
+              <div className="font-semibold">+201020430122</div>
             </div>
             <div className="flex-1">
-              <div className="text-sm">💬</div>
-              <div className="font-semibold">+971 561794005</div>
+              <a href="https://wa.me/201020430122" target="_blank" rel="noopener noreferrer" className="inline-flex flex-col items-center gap-1">
+                <div className="text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="inline-block w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M20.52 3.48A11.94 11.94 0 0012 .5 11.92 11.92 0 003.75 3.75 11.94 11.94 0 00.5 12c0 2.11.55 4.08 1.6 5.86L.5 23.5l5.9-1.55A11.94 11.94 0 0012 23.5c6.6 0 11.99-5.39 11.99-12 0-3.2-1.25-6.19-3.47-8.02zM12 21.5a9.78 9.78 0 01-5.2-1.46l-.37-.22-3.48.94.94-3.36-.22-.35A9.78 9.78 0 1112 21.5z" />
+                    <path d="M17.5 14.5c-.3 0-1.78-.9-2.06-1-.28-.1-.48-.14-.68.14-.2.28-.78 1-.95 1.2-.17.2-.34.25-.63.08-.3-.17-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.62.13-.13.3-.34.45-.51.15-.17.2-.28.3-.46.1-.17.05-.33-.02-.46-.07-.12-.68-1.64-.93-2.26-.24-.6-.48-.52-.66-.53-.17-.01-.37-.01-.57-.01s-.46.07-.7.33c-.24.26-.92.9-.92 2.2 0 1.3.95 2.56 1.08 2.74.13.17 1.86 2.84 4.52 3.87 3.36 1.35 4.06 1.09 4.79 1.02.29-.03.9-.36 1.03-.71.13-.35.13-.65.09-.71-.05-.06-.18-.09-.38-.16-.2-.07-1.17-.43-1.35-.48-.18-.05-.31-.07-.51.05-.2.12-.78.45-.95.6-.18.14-.36.07-.65.03z" />
+                  </svg>
+                </div>
+                <div className="font-semibold">+201020430122</div>
+              </a>
             </div>
           </div>
         </div>
