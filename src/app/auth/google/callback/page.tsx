@@ -1,18 +1,22 @@
 'use client';
 
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+
+// Ensure this page is treated as dynamic (not prerendered). It relies on
+// client-side navigation/search params and a server-side exchange.
+export const dynamic = 'force-dynamic';
 import { useEffect, useState } from 'react';
 
 export default function GoogleCallbackPage() {
-  const searchParams = useSearchParams();
   const router = useRouter();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('Processing Google sign-in...');
 
   useEffect(() => {
-    const code = searchParams.get('code');
-    const error = searchParams.get('error');
-    const state = searchParams.get('state');
+    const url = typeof window !== 'undefined' ? new URL(window.location.href) : null;
+    const code = url ? url.searchParams.get('code') : null;
+    const error = url ? url.searchParams.get('error') : null;
+    const state = url ? url.searchParams.get('state') : null;
 
     if (error) {
       setStatus('error');
@@ -65,7 +69,7 @@ export default function GoogleCallbackPage() {
     };
 
     exchangeCode();
-  }, [searchParams, router]);
+  }, [router]);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-primary to-orange-500 flex items-center justify-center py-12">
