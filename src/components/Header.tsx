@@ -39,9 +39,6 @@ export default function Header() {
 
           {/* Action Buttons */}
           <div className="hidden md:flex gap-4 items-center">
-            <Link href="/login" className="text-secondary font-semibold hover:text-primary">
-              Login
-            </Link>
             <Link href="/contact" className="btn-primary">
               Contact Us
             </Link>
@@ -76,9 +73,6 @@ export default function Header() {
             </Link>
             <Link href="/destinations" className="hover:text-primary">
               Destinations
-            </Link>
-            <Link href="/login" className="text-secondary font-semibold">
-              Login
             </Link>
             <Link href="/contact" className="btn-primary">
               Contact Us
