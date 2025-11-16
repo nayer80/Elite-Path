@@ -3,10 +3,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { ChevronDown, User, ShoppingCart } from "lucide-react";
+import { useCurrency } from "@/lib/CurrencyContext";
 
 export default function HeaderBar() {
   const [openCurrency, setOpenCurrency] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState("AED");
+  const { selectedCurrency, setSelectedCurrency } = useCurrency();
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside

@@ -1,12 +1,14 @@
 "use client";
 
 import React from "react";
+import { useCurrency } from "@/lib/CurrencyContext";
 
 // Australia Visa Page (Elite Path version)
 // Copy into /pages/australia-visa.jsx or /app/australia-visa/page.jsx
 // Tailwind CSS required
 
 export default function AustraliaVisaPage() {
+  const { selectedCurrency, convertPrice } = useCurrency();
   const documents = [
     "Passport with a minimum validity of six months",
     "UAE residence visa with 90+ days validity",
@@ -127,7 +129,7 @@ export default function AustraliaVisaPage() {
           <aside className="bg-gray-50 p-4 rounded-lg shadow-inner">
             <div className="mb-4">
               <div className="text-sm text-gray-500">From</div>
-              <div className="text-2xl font-bold">AED 550</div>
+              <div className="text-2xl font-bold">{selectedCurrency} {convertPrice(550).toLocaleString()}</div>
               <div className="text-xs text-gray-500">Processing: 25–45 working days</div>
             </div>
 

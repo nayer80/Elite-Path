@@ -2,8 +2,10 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 export default function CanadaVisaPage() {
+  const { selectedCurrency, convertPrice } = useCurrency();
   const [appointmentSelected, setAppointmentSelected] = useState(true);
   const [frequentSelected, setFrequentSelected] = useState(false);
 
@@ -70,7 +72,8 @@ export default function CanadaVisaPage() {
     }
 
     if (items.length > 0) {
-      alert('Added to cart: ' + items.map((i) => i.name).join(', ') + ' (AED ' + items.reduce((s, i) => s + i.total, 0) + ')');
+      const totalAED = items.reduce((s, i) => s + i.total, 0);
+      alert('Added to cart: ' + items.map((i) => i.name).join(', ') + ' (' + selectedCurrency + ' ' + convertPrice(totalAED) + ')');
     } else {
       alert('Please select at least one option to add to cart.');
     }
@@ -125,7 +128,7 @@ export default function CanadaVisaPage() {
             <div className="w-full md:w-48 mt-4 md:mt-0 flex-shrink-0">
               <div className="bg-gray-50 rounded-lg p-4 text-center">
                 <div className="text-sm text-gray-500">Price</div>
-                <div className="text-xl font-bold text-orange-600">AED { (prices.appointment * appointmentQuantity).toLocaleString() }</div>
+                <div className="text-xl font-bold text-orange-600">{selectedCurrency} { convertPrice(prices.appointment * appointmentQuantity).toLocaleString() }</div>
               </div>
             </div>
           </div>
@@ -172,7 +175,7 @@ export default function CanadaVisaPage() {
             <div className="w-full md:w-48 mt-4 md:mt-0 flex-shrink-0">
                 <div className="bg-gray-50 rounded-lg p-4 text-center">
                 <div className="text-sm text-gray-500">Price</div>
-                <div className="text-xl font-bold text-orange-600">AED { (prices.frequent * frequentQuantity).toLocaleString() }</div>
+                <div className="text-xl font-bold text-orange-600">{selectedCurrency} { convertPrice(prices.frequent * frequentQuantity).toLocaleString() }</div>
               </div>
             </div>
           </div>
