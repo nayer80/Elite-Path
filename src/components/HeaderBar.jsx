@@ -21,7 +21,7 @@ export default function HeaderBar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
   return (
-    <div className="w-full bg-white border-b py-2 text-sm">
+    <div className="w-full bg-white border-b py-2 text-sm relative z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-end gap-6 pr-4">
         {/* Helpline */}
         <div className="flex items-center gap-1 cursor-pointer hover:text-blue-600">
@@ -47,7 +47,7 @@ export default function HeaderBar() {
 
           {/* Dropdown Panel */}
           {openCurrency && (
-            <div className="absolute right-0 mt-2 w-72 bg-white shadow-lg rounded-xl p-4 z-50 max-h-96 overflow-y-auto">
+            <div className="absolute right-0 top-full mt-2 w-72 bg-white shadow-2xl rounded-xl p-4 z-50 max-h-96 overflow-y-auto border border-gray-200">
               <div className="grid grid-cols-4 gap-3 text-sm">
                 {[
                   { code: "AED", symbol: "د.إ" },

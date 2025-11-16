@@ -12,7 +12,7 @@ export default function Header() {
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img src="/images/elite-path-logo.svg" alt="Elite Path" className="h-32" />
+            <img src="/images/elite-path-logo.svg" alt="Elite Path" className="h-12" />
           </Link>
 
           {/* Desktop Navigation */}

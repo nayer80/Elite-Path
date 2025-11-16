@@ -1,6 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 const visasData: { [key: string]: any } = {
   'schengen-visa': {
@@ -95,6 +96,7 @@ const visasData: { [key: string]: any } = {
 
 export default function VisaDetailPage() {
   const params = useParams();
+  const { selectedCurrency, convertPrice } = useCurrency();
   const slug = params.slug as string;
   const visa = visasData[slug];
 
@@ -149,7 +151,7 @@ export default function VisaDetailPage() {
                   </div>
                   <div className="bg-orange-50 p-6 rounded-lg">
                     <p className="text-sm text-gray-600 mb-2">Service Fee</p>
-                    <p className="text-2xl font-bold text-orange-600">${visa.fee}</p>
+                    <p className="text-2xl font-bold text-orange-600">{selectedCurrency} {convertPrice(visa.fee).toLocaleString()}</p>
                   </div>
                 </div>
 
@@ -183,7 +185,7 @@ export default function VisaDetailPage() {
                   </div>
                   <div className="border-b pb-4">
                     <p className="text-sm text-gray-600">Fee</p>
-                    <p className="text-2xl font-bold text-primary">${visa.fee}</p>
+                    <p className="text-2xl font-bold text-primary">{selectedCurrency} {convertPrice(visa.fee).toLocaleString()}</p>
                   </div>
                   <button className="w-full btn-primary mt-4">
                     Apply Now

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 const visas = [
   {
@@ -97,6 +98,7 @@ const visas = [
 
 export default function VisasPage() {
   const router = useRouter();
+  const { selectedCurrency, convertPrice } = useCurrency();
   const [visaFor, setVisaFor] = useState('');
   const [nationality, setNationality] = useState('');
   const [livingCountry, setLivingCountry] = useState('');
@@ -311,7 +313,7 @@ export default function VisasPage() {
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">Service Fee</p>
-                      <p className="font-semibold text-2xl text-primary">${visa.fee}</p>
+                      <p className="font-semibold text-2xl text-primary">{selectedCurrency} {convertPrice(visa.fee).toLocaleString()}</p>
                     </div>
                   </div>
                   <button className="w-full btn-primary">Apply Now</button>
