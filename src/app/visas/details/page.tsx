@@ -2,6 +2,7 @@
 
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useCurrency } from '@/lib/CurrencyContext';
 
 const visaDetails: { [key: string]: any } = {
   'usa-visa': {
@@ -155,8 +156,18 @@ function VisaDetailContent() {
   const nationality = searchParams.get('nationality');
   const livingCountry = searchParams.get('living');
   const travelDate = searchParams.get('date');
+  const { selectedCurrency, convertPrice } = useCurrency();
 
   const visa = slug ? visaDetails[slug] : null;
+
+  // Helper function to parse price string and convert it
+  const convertPriceString = (priceStr: string): string => {
+    // Extract numeric value from price string (e.g., "$399" -> 399)
+    const numericPrice = parseFloat(priceStr.replace(/[$,]/g, ''));
+    if (isNaN(numericPrice)) return priceStr;
+    const converted = convertPrice(numericPrice);
+    return `${converted}`;
+  };
 
   if (!visa) {
     return (
@@ -293,7 +304,7 @@ function VisaDetailContent() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                   <div className="text-right w-full md:w-auto">
                     <p className="text-sm text-gray-600 mb-1">Starting from</p>
-                    <p className="text-3xl font-bold text-primary">{option.prices.normal}</p>
+                    <p className="text-3xl font-bold text-primary">{selectedCurrency} {convertPriceString(option.prices.normal)}</p>
                     
                   </div>
                   <div className="flex gap-3 w-full md:w-auto">
