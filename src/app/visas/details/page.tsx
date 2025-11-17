@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCurrency } from '@/lib/CurrencyContext';
+import { handleAddToCart } from '@/lib/visaCartHandler';
 
 const visaDetails: { [key: string]: any } = {
   'usa-visa': {
@@ -280,7 +281,10 @@ function VisaDetailContent() {
                           </select>
                         )
                         ) : (
-                          <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                          <select
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                            data-test-quantity
+                          >
                             <option value="">{field.placeholder}</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -311,7 +315,50 @@ function VisaDetailContent() {
                     <button onClick={() => window.location.href = '/quick-enquiry'} className="flex-1 md:flex-none px-6 py-2 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition">
                       Quick Enquiry
                     </button>
-                    <button className="flex-1 md:flex-none px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-orange-600 transition">
+                    <button 
+                      onClick={(e) => {
+                        // read quantity from the select in this option card
+                        try {
+                          const card = document.querySelector(`[data-visa-type="${slug}"]`);
+                        } catch (e) {}
+                        // find the nearest select[data-test-quantity] within this option card
+                        let qty = 1;
+                        try {
+                          const el = (e?.currentTarget as HTMLElement)?.closest('.bg-white');
+                        } catch (err) {}
+                        try {
+                          // locate the select relative to this button using DOM traversal
+                          const btn = (e as any)?.currentTarget as HTMLElement;
+                          let cardEl = btn?.closest('.bg-white') as HTMLElement | null;
+                          if (!cardEl) {
+                            // fallback to query by option type
+                            cardEl = document.querySelector(`button[data-visa-type=\"${slug}\"]`)?.closest('.bg-white') as HTMLElement | null;
+                          }
+                          if (cardEl) {
+                            const sel = cardEl.querySelector('select[data-test-quantity]') as HTMLSelectElement | null;
+                            if (sel && sel.value) qty = parseInt(sel.value, 10) || 1;
+                          }
+                        } catch (e) {
+                          // ignore and use default 1
+                        }
+                        // compute displayed unit price (the number the user sees) and pass into cart
+                        let displayedUnit = 0;
+                        try {
+                          // convertPriceString returns the numeric shown (no symbol)
+                          const convertedText = convertPriceString(option.prices.normal);
+                          displayedUnit = parseFloat(String(convertedText)) || 0;
+                        } catch (err) {
+                          displayedUnit = 0;
+                        }
+
+                        slug && handleAddToCart(slug, option.type, option.prices.normal, selectedCurrency, { quantity: qty, unitPrice: displayedUnit, unitCurrency: selectedCurrency });
+                      }}
+                      data-visa-type={slug}
+                      data-visa-option={option.type}
+                      data-price={option.prices.normal}
+                      className="flex-1 md:flex-none px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-orange-600 transition"
+                      disabled={!slug}
+                    >
                       Add to Cart
                     </button>
                   </div>
