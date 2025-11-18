@@ -2,22 +2,31 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { ChevronDown, User, ShoppingCart } from "lucide-react";
+import { ChevronDown, User, ShoppingCart, LogOut } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import { useCurrency } from "@/lib/CurrencyContext";
+import { useAuth } from "@/lib/AuthContext";
 import { getCartCount } from '@/lib/visaCartHandler';
+import { GoogleLogin } from '@react-oauth/google';
+import AuthModal from '@/components/AuthModal';
 
 export default function HeaderBar() {
   const [openCurrency, setOpenCurrency] = useState(false);
   const [openHelpline, setOpenHelpline] = useState(false);
+  const [openUserMenu, setOpenUserMenu] = useState(false);
   const { selectedCurrency, setSelectedCurrency } = useCurrency();
+  const { user, login, logout } = useAuth();
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const helplineRef = useRef(null);
   const helplineButtonRef = useRef(null);
+  const userMenuRef = useRef(null);
+  const userMenuButtonRef = useRef(null);
   const [helplineStyle, setHelplineStyle] = useState(null);
   const [dropdownStyle, setDropdownStyle] = useState(null);
   const [cartCount, setCartCount] = useState(0);
+  const [loginError, setLoginError] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const router = useRouter();
 
   // Close dropdown when clicking outside
@@ -39,11 +48,20 @@ export default function HeaderBar() {
       ) {
         setOpenHelpline(false);
       }
+      if (
+        userMenuRef.current &&
+        !userMenuRef.current.contains(e.target) &&
+        userMenuButtonRef.current &&
+        !userMenuButtonRef.current.contains(e.target)
+      ) {
+        setOpenUserMenu(false);
+      }
     }
     function handleKeyDown(e) {
       if (e.key === "Escape") {
         setOpenCurrency(false);
         setOpenHelpline(false);
+        setOpenUserMenu(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -83,6 +101,55 @@ export default function HeaderBar() {
       window.removeEventListener('storage', onStorage);
     };
   }, []);
+
+  // Handle Google OAuth success
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setLoginError('');
+      const { credential } = credentialResponse;
+
+      if (!credential) {
+        setLoginError('No credential received from Google');
+        return;
+      }
+
+      // Decode JWT to get user info (basic decoding without verification)
+      const base64Url = credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      const decodedToken = JSON.parse(jsonPayload);
+
+      // For production, you'd exchange the credential here
+      // For now, create user object from decoded token
+      const userData = {
+        id: decodedToken.sub,
+        email: decodedToken.email,
+        name: decodedToken.name,
+        picture: decodedToken.picture || '',
+      };
+
+      // Store user data in context
+      login(userData, credential);
+      setOpenUserMenu(false);
+    } catch (error) {
+      console.error('Google OAuth error:', error);
+      setLoginError('Failed to sign in with Google');
+    }
+  };
+
+  const handleGoogleError = () => {
+    setLoginError('Google sign-in failed');
+  };
+
+  const handleLogout = () => {
+    logout();
+    setOpenUserMenu(false);
+  };
 
   return (
     <div className="w-full bg-white border-b py-2 text-sm overflow-visible">
@@ -205,11 +272,70 @@ export default function HeaderBar() {
           )}
         </div>
 
-        {/* Login */}
-        <Link href="/login" className="flex items-center gap-1 cursor-pointer hover:text-blue-600">
-          <User size={16} />
-          <span>Log In</span>
-        </Link>
+        {/* Login / User Menu */}
+        {user ? (
+          <div className="relative" ref={userMenuRef}>
+            <button
+              type="button"
+              ref={userMenuButtonRef}
+              onClick={() => setOpenUserMenu(!openUserMenu)}
+              className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition"
+            >
+              {user.picture && (
+                <img
+                  src={user.picture}
+                  alt={user.name}
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+              <span className="text-xs font-semibold max-w-[80px] truncate">{user.name}</span>
+              <ChevronDown size={14} />
+            </button>
+
+            {openUserMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-100">
+                  <div className="text-xs text-gray-600">Signed in as</div>
+                  <div className="font-semibold truncate">{user.email}</div>
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition"
+                >
+                  <LogOut size={16} />
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            <Link
+              href="/login"
+              onClick={(e) => {
+                // Keep header layout identical — open modal instead of navigating
+                e.preventDefault();
+                setShowAuthModal(true);
+              }}
+              className="flex items-center gap-1 cursor-pointer hover:text-blue-600"
+            >
+              <User size={16} />
+              <span>Log In</span>
+            </Link>
+
+            <AuthModal
+              open={showAuthModal}
+              onClose={() => setShowAuthModal(false)}
+              onGoogleSuccess={(res) => {
+                handleGoogleSuccess(res);
+                setShowAuthModal(false);
+              }}
+              onGoogleError={() => {
+                handleGoogleError();
+              }}
+            />
+          </>
+        )}
 
         {/* Divider */}
         <div className="w-px h-5 bg-gray-300"></div>

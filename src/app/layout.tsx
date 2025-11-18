@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import HeaderBar from '@/components/HeaderBar';
 import Footer from '@/components/Footer';
 import { CurrencyProvider } from '@/lib/CurrencyContext';
+import { AuthProviderWrapper } from '@/components/AuthProviderWrapper';
 import '@/globals.css';
 
 export const metadata: Metadata = {
@@ -18,14 +19,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <CurrencyProvider>
-          <HeaderBar />
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
-        </CurrencyProvider>
+        <AuthProviderWrapper>
+          <CurrencyProvider>
+            <HeaderBar />
+            <Header />
+            <main className="min-h-screen">
+              {children}
+            </main>
+            <Footer />
+          </CurrencyProvider>
+        </AuthProviderWrapper>
       </body>
     </html>
   );

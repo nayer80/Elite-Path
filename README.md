@@ -47,16 +47,50 @@ A modern, fully-featured travel and tourism website built with Next.js, React, a
 
 ## Installation
 
+## 🔐 Google OAuth 2.0 Authentication
+
+Google OAuth 2.0 has been integrated for user authentication. Users can sign in with their Google accounts directly from the header bar.
+
+### Quick Start
+1. Visit [Google Cloud Console](https://console.cloud.google.com/)
+2. Create OAuth credentials and copy your Client ID
+3. Add to `.env.local`:
+   ```env
+   GOOGLE_CLIENT_ID=your_client_id_here
+   NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_client_id_here
+   GOOGLE_CLIENT_SECRET=your_client_secret_here
+   ```
+4. Run `npm run dev` and click "Sign in with Google" button
+
+### Features
+- ✅ Official Google Account Picker UI
+- ✅ Secure OAuth 2.0 authentication
+- ✅ User profile display (picture + name)
+- ✅ Persistent login across sessions
+- ✅ Easy integration with `useAuth()` hook
+
+### Documentation
+- **Quick Start**: See `GOOGLE_OAUTH_QUICKSTART.md`
+- **Complete Setup**: See `GOOGLE_OAUTH_SETUP.md`
+- **API Reference**: See `GOOGLE_OAUTH_API_REFERENCE.md`
+- **Implementation Details**: See `GOOGLE_OAUTH_IMPLEMENTATION.md`
+- **Visual Summary**: See `GOOGLE_OAUTH_VISUAL_SUMMARY.md`
+
+### Using Authentication in Components
+```typescript
+import { useAuth } from '@/lib/AuthContext';
+
+export default function MyComponent() {
+  const { user, isAuthenticated, logout } = useAuth();
+  
+  if (!isAuthenticated) return <p>Please sign in</p>;
+  
+  return <h1>Welcome, {user?.name}!</h1>;
+}
+```
+
 1. Navigate to the project directory:
 ```bash
-cd "d:\Elite Path"
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
 3. Run the development server:
 ```bash
 npm run dev
@@ -66,6 +100,7 @@ npm run dev
 
 ## Building for Production
 
+For Google OAuth setup help, see the OAuth documentation files in the project root.
 ```bash
 npm run build
 npm start
