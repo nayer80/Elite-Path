@@ -85,11 +85,11 @@ export default function HeaderBar() {
   }, []);
 
   return (
-    <div className="w-full bg-white border-b py-2 text-sm">
-      <div className="max-w-7xl mx-auto flex items-center justify-end gap-6 pr-4">
+    <div className="w-full bg-white border-b py-2 text-sm overflow-visible">
+      <div className="max-w-7xl mx-auto flex items-center justify-end gap-6 pr-4 overflow-visible">
 
         {/* Helpline (restored to original position) */}
-        <div className="relative" ref={helplineRef}>
+        <div className="relative overflow-visible" ref={helplineRef} style={{ zIndex: 'auto' }}>
           <button
             type="button"
             ref={helplineButtonRef}
@@ -115,14 +115,22 @@ export default function HeaderBar() {
 
           {openHelpline && (
             <div
-              className="bg-white border rounded-lg p-3 drop-shadow-md flex-col text-sm z-50"
-              style={helplineStyle || { position: 'fixed', top: '56px', right: '1rem', width: '220px' }}
+              className="border rounded-lg p-3 flex-col text-sm"
+              style={{
+                ...(helplineStyle || { position: 'fixed', top: '56px', right: '1rem', width: '220px' }),
+                backgroundColor: '#ffffff',
+                color: '#374151',
+                zIndex: 50000,
+                display: 'block',
+                boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+                borderColor: '#e5e7eb',
+              }}
             >
-              <a href="tel:+971509787748" className="flex items-center gap-2 text-gray-700 hover:text-blue-600">
+              <a href="tel:+971509787748" className="flex items-center gap-2 hover:text-blue-600" style={{ color: '#374151', textDecoration: 'none', marginBottom: '8px', display: 'flex' }}>
                 <span className="text-lg">🇦🇪</span>
                 <span>+971 509787748</span>
               </a>
-              <a href="tel:+201020430122" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 mt-2">
+              <a href="tel:+201020430122" className="flex items-center gap-2 hover:text-blue-600" style={{ color: '#374151', textDecoration: 'none', display: 'flex' }}>
                 <span className="text-lg">🇪🇬</span>
                 <span>+20 1020430122</span>
               </a>
@@ -166,13 +174,13 @@ export default function HeaderBar() {
             >
               <div className="grid grid-cols-4 gap-3 text-sm">
                 {[
-                  { code: "GBP", symbol: "£" },
-                  { code: "EGP", symbol: "£" },
-                  { code: "AED", symbol: "د.إ" },
-                  { code: "SAR", symbol: "ر.س" },
-                  { code: "KWD", symbol: "د.ك" },
-                  { code: "OMR", symbol: "ر.ع" },
-                  { code: "USD", symbol: "$" }
+                  { code: "GBP", symbol: "£", flag: null },
+                  { code: "EGP", symbol: "£", flag: "🇪🇬" },
+                  { code: "AED", symbol: "د.إ", flag: "🇦🇪" },
+                  { code: "SAR", symbol: "ر.س", flag: null },
+                  { code: "KWD", symbol: "د.ك", flag: null },
+                  { code: "OMR", symbol: "ر.ع", flag: null },
+                  { code: "USD", symbol: "$", flag: null }
                 ].map((c) => (
                   <div
                     key={c.code}
@@ -182,8 +190,14 @@ export default function HeaderBar() {
                     }}
                     className={`border rounded-lg py-1.5 px-2 text-center cursor-pointer hover:bg-gray-100 transition ${selectedCurrency === c.code ? 'border-orange-500 text-orange-500' : 'border-gray-300'}`}
                   >
-                    <div className="font-semibold">{c.code}</div>
-                    <div className="text-xs text-gray-500">{c.symbol}</div>
+                    {c.flag ? (
+                      <div className="text-2xl">{c.flag}</div>
+                    ) : (
+                      <>
+                        <div className="font-semibold">{c.code}</div>
+                        <div className="text-xs text-gray-500">{c.symbol}</div>
+                      </>
+                    )}
                   </div>
                 ))}
               </div>
